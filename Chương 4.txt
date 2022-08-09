@@ -1,0 +1,79 @@
+-- CHUONWG4----------------------------------------------------------------
+--1.Liệt kê tên nhân viên, mã phòng ban và lương nhân viên được tăng 15% (PCTSAL).
+SELECT DEPTNO, EMPNO, COUNT(SAL * 0.15) + SAL PCTSAL
+FROM EMP
+GROUP BY DEPTNO, EMPNO, SAL;
+--2.Viết câu lệnh hiển thị như sau:
+--  EMPLOYEE_AND_JOB
+SELECT RPAD(ENAME, 7, '*') EMPLOYEE, LPAD(JOB, 9, '*') JOB
+FROM EMP;
+-- 3.Viết câu lệnh hiển thị như sau:
+-- EMPLOYEE_AND_JOB
+SELECT ENAME || ' (' || EMP.JOB || ')' EMPLOYEE
+FROM EMP;
+--4.Viết câu lệnh hiển thị như sau:
+SELECT LTRIM(ENAME, 'A '), DEPTNO, JOB
+FROM EMP
+WHERE DEPTNO = 30;
+--5.Tìm ngày thứ 6 đầu tiên cách 2 tháng so với ngày hiện tại hiển thị ngày dưới dạng 09 February 1990.
+
+--6. Tìm thông itn về tên nhân viên, ngày gia nhập công ty của nhân viên phòng số 20,sao cho hiển thị như sau:
+SELECT ENAME, TO_CHAR(HIREDATE, 'month,DAY,yyyy')
+FROM EMP
+where DEPTNO = 20;
+--7.Hiển thị tên nhân viên, ngày gia nhập công ty, ngày xét nâng lương (sau ngày gia
+--    nhập công ty 1 năm), sắp xếp theo thứ tự ngày xét nâng lương.
+SELECT ENAME, HIREDATE, ADD_MONTHS(HIREDATE, 12) HIREDATE_REVIEW
+FROM EMP
+ORDER BY HIREDATE ASC;
+
+--8.Hiển thị tên nhân viên và lương dưới dạng
+SELECT ENAME,
+       (CASE
+            WHEN SAL = 1500 THEN 'ON TARGET'
+            WHEN SAL < 1500 THEN 'BELOW 1500'
+            ELSE TO_CHAR(SAL)
+           END) SALARY
+FROM EMP
+WHERE SAL IS NOT NULL;
+--9.cho biet thứ ngày của hiện tại
+select sysdate
+from dual;
+--10.	Đưa  chuỗi  dưới  dạng  nn/nn,  kiểm  tra  nếu  khúng  khuôn  dạng  trả  lời  là  YES,  ngược  lại   là NO. Kiểm tra với các chuỗi 12/34, 01/1a, 99\88 VALUE VALID? 12/34 YES
+select decode('nn/nn', '14/12', 'yes', 'no')
+from DUAL;
+
+-- 11. Hiển thị tên nhân viên, ngày gia nhập công ty, ngày lĩnh lương sao cho ngày lĩnh
+-- lương phải vào thứ 6, nhân viên chỉ được nhận lương sau ít nhất 15 ngày làm việc tại
+-- công ty, sắp xếp theo thứ tự ngày gia nhập công ty
+select ENAME, HIREDATE, next_day(HIREDATE + 15, 'Friday') NgayNhanLuong
+from EMP
+where (CURRENT_DATE - EMP.HIREDATE) > 15
+order by HIREDATE;
+--Hàm trên nhóm dữ liệu-----------------------------------------
+--1. Tìm lương thấp nhất, lớn nhất và lương trung bình của tất cả các nhân viên
+select MIN(SAL)
+from EMP;
+Select max(SAL)
+FROM EMP;
+select avg(SAL)
+from EMP;
+--2.Tìm lương nhỏ nhất và lớn của mỗi loại nghề nghiệp
+select JOB,MIN(SAL) LuongThap, MAX(SAL) LuongCao
+from EMP
+group by JOB;
+--3.
+select count(Job)
+from EMP
+where JOB like '%PRESIDENT%';
+--4.
+select count(EMPNO), DEPTNO
+from EMP
+group by DEPTNO
+having count(EMPNO) > 3;
+--5.
+select MIN(SAL) LUONGNHONHAT, ENAME
+from EMP
+WHERE JOB NOT LIKE '%PRESIDENT%'
+group by ENAME
+ORDER BY LUONGNHONHAT
