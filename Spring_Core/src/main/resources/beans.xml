@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+       default-init-method="initMessage" default-destroy-method="replease">
+    <!--    init-method="initMessage"|||scope="singleton"-->
+
+
+<!--    <bean id="helloJavaClazz" class="springcore.HelloClazz">-->
+<!--        <property name="message" value="Hello Bean Inheritance!"/>-->
+<!--    </bean>-->
+
+
+<!--    <bean id="helloJavaClazz2" class="springcore.HelloClazz" init-method="initMessage">-->
+<!--        <constructor-arg ref="helloJavaClazz"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="helloWorld" class="springcore.HelloWorld">-->
+<!--        <property name="clazz">-->
+<!--            <bean id="helloJavaClazz" class="springcore.HelloClazz">-->
+<!--                <property name="message" value="Hello Class Instance is Inner Bean"></property>-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    <bean id="jee01" class="springcore.JavaClazz">-->
+<!--        <property name="students">-->
+<!--            <map>-->
+<!--                <entry key="Nguyen Van A" value="23"/>-->
+<!--                <entry key="Nguyen Thi B" value="18"/>-->
+<!--                <entry key="Le Thi C" value="27"/>-->
+<!--                <entry key="Hoang Van D" value="34"/>-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--&lt;!&ndash;    <bean id="sampleTemplate" abstract="true">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="message" value="Template say hello!"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/sample_son"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456789"/>
+    </bean>
+<!--    <bean id="studentJdbcDAO" class="springjdbc.StudentJdbcDAO" init-method="createTableIfNotExist">-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--    </bean>-->
+    <bean id="studentJdbcDAO" class="springjdbc.StudentJdbcDAO">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="insertQuery" value="INSERT INTO STUDENT(name,age) VALUES(?,?)"/>
+    </bean>
+
+    <bean id = "transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>
