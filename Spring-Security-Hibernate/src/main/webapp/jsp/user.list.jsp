@@ -19,21 +19,21 @@
                 </tr>
                 <tr>
                     <td>Username</td>
-                    <td>Password</td>
-                    <td>Email</td>
+<%--                    <td>Password</td>--%>
+<%--                    <td>Email</td>--%>
                     <td>Age</td>
-                    <td>Group ID</td>
-                    <td colspan="2">¬_¬</td>
+<%--                    <td>Group ID</td>--%>
+<%--                    <td colspan="2">¬_¬</td>--%>
                 </tr>
                 <c:forEach items="${users}" var="item" varStatus="loop">
                     <tr>
-                        <td>${item.username}</td>
-                        <td>${item.password}</td>
-                        <td>${item.email}</td>
+                        <td><a href="/user/chi-tiet/${item.username}">${item.username}</a> </td>
+<%--                        <td>${item.password}</td>--%>
+<%--                        <td>${item.email}</td>--%>
                         <td>${item.age}</td>
-                        <td>${item.groupId}</td>
-                        <td><a href="/user/delete/${item.username}">Delete</a></td>
-                        <td><a href="/user/update?username=${item.username}">Update</a></td>
+<%--                        <td>${item.groupId}</td>--%>
+<%--                        <td><a href="/user/delete/${item.username}">Delete</a></td>--%>
+<%--                        <td><a href="/user/update?username=${item.username}">Update</a></td>--%>
                     </tr>
                 </c:forEach>
             </table>

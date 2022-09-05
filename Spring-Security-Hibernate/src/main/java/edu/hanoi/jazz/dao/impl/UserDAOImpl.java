@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
     public List<User> list(Integer group) {
         Session session = sessionFactory.getObject().openSession();
         if (group == null || group < 0) {
-            Query query = session.createQuery("from User ");
+            Query query = session.createQuery("from User order by age desc");
             return (List<User>) query.getResultList();
         }
         Criteria criteria = session.createCriteria(User.class);

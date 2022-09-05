@@ -83,4 +83,10 @@ public class    UserController {
         }
         return new ModelAndView("user.form", "command", user);
     }
+    @GetMapping("/chi-tiet/{username}")
+    public ModelAndView list(@PathVariable("username") String username){
+        ModelAndView mv = new ModelAndView("user/detail");
+        mv.addObject("user", userDAO.get(username));
+        return mv;
+    }
 }

@@ -10,5 +10,6 @@
         <property name="email" column="email" type="java.lang.String" />
         <property name="age" column="age" type="int" />
         <property name="groupId" column="groupId" type="int" />
+        <many-to-one name="groupId" column="groupId" class="edu.hanoi.jazz.model.Group" not-null="true" lazy="false" insert="false" update="false" />
     </class>
 </hibernate-mapping>

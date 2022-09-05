@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 @javax.persistence.Entity
 @Table(name="HN_USER",
         uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
-public class User {
+public class User implements Comparable<User>{
     @Id
     @Column(name = "username", unique = true, nullable = false)
     private String username;
@@ -21,13 +21,21 @@ public class User {
     @Column(name = "age", nullable = false)
     private int age;
     @Column(name = "groupId", nullable = false)
-    private int groupId;
+    private Group groupId;
 
     public User() {
 
     }
 
-    public User(String username, String password, String email, int age, int groupId) {
+//    public User(String username, String password, String email, int age, int groupId) {
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.age = age;
+//        this.groupId = groupId;
+//    }
+
+    public User(String username, String password, String email, int age, Group groupId) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -51,7 +59,7 @@ public class User {
         return age;
     }
 
-    public int getGroupId() {
+    public Group getGroupId() {
         return groupId;
     }
 
@@ -71,7 +79,12 @@ public class User {
         this.age = age;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Group groupId) {
         this.groupId = groupId;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return age - o.age;
     }
 }

@@ -24,7 +24,13 @@
                 <c:forEach items="${groups}" var="item" varStatus="loop">
                     <tr>
 
-                        <td><a href="/user/list?group=${item.id}">${item.name}</a></td>
+                        <td><a href="/user/list?group=${item.id}">${item.name}</a>
+                            <ul>
+                                <c:forEach items="${item.users}" var="user" varStatus="loop">
+                                    <li>${user.username} - ${user.age}</li>
+                                </c:forEach>
+                            </ul>
+                        </td>
                         <td><a href="/group/delete/${item.id}">Delete</a></td>
                         <td><a href="/group/update?id=${item.id}">Update</a></td>
                     </tr>
